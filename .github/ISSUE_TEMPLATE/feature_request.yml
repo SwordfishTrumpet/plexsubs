@@ -1,0 +1,56 @@
+name: Feature Request
+description: Suggest an idea for this project
+title: '[Feature]: '
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        
+        Thank you for suggesting an improvement! We welcome ideas, though please understand that this is a personal project with limited maintenance time.
+        
+        > **Note:** Feature requests are welcome but may not be implemented quickly (or at all) depending on complexity and available time. The project is maintained on a best-effort basis. Critical bugs take priority over new features.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: A clear description of what the problem is
+      placeholder: I'm always frustrated when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: What would you like to see happen?
+      placeholder: It would be great if plexsubs could...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: Any alternative solutions or features you've thought about
+      placeholder: I could also work around this by...
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context, screenshots, or examples about the feature request
+      placeholder: Links, screenshots, use cases...
+
+  - type: checkboxes
+    id: willingness
+    attributes:
+      label: Implementation
+      description: This helps us understand the nature of the request
+      options:
+        - label: I understand this is a feature request, not a commitment to implement it
+          required: true
+        - label: I would be willing to test the feature if implemented
+          required: false

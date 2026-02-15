@@ -1,0 +1,58 @@
+services:
+  plexsubs:
+    build: .
+    container_name: plexsubs
+    restart: unless-stopped
+    ports:
+      - "${SERVER_PORT:-9000}:9000"
+    environment:
+      # Plex
+      - PLEX_URL=${PLEX_URL}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+      
+      # OpenSubtitles (all three required)
+      - OPENSUBTITLES_USERNAME=${OPENSUBTITLES_USERNAME}
+      - OPENSUBTITLES_PASSWORD=${OPENSUBTITLES_PASSWORD}
+      - OPENSUBTITLES_API_KEY=${OPENSUBTITLES_API_KEY}
+      
+      # Subtitle settings
+      - SUBTITLES_LANGUAGES=${SUBTITLES_LANGUAGES:-en}
+      - SUBTITLES_AUTO_SELECT=${SUBTITLES_AUTO_SELECT:-true}
+      - SUBTITLES_USE_RELEASE_MATCHING=${SUBTITLES_USE_RELEASE_MATCHING:-true}
+      - SUBTITLES_UPGRADE_ON_PERFECT_MATCH=${SUBTITLES_UPGRADE_ON_PERFECT_MATCH:-true}
+      
+      # Server
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=9000
+      - SERVER_WEBHOOK_PATH=${SERVER_WEBHOOK_PATH:-/plexsubs}
+      
+      # Logging
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_USE_COLORS=${LOG_USE_COLORS:-true}
+      - LOG_JSON_FORMAT=${LOG_JSON_FORMAT:-false}
+      
+      # Path mappings (format: /plex/path:/local/path,/another:/local)
+      - PLEX_PATH_MAPPINGS=${PLEX_PATH_MAPPINGS:-/media:/mnt/library}
+    
+    volumes:
+      # Mount your media library
+      - ${MEDIA_PATH:-/mnt/library}:/mnt/library:rw
+      
+      # Optional: persistent logs
+      - ./logs:/app/logs
+    
+    user: "1000:100"
+    
+    networks:
+      - plex-network
+    
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests, sys; sys.exit(0 if requests.get('http://localhost:9000/health').status_code == 200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  plex-network:
+    driver: bridge

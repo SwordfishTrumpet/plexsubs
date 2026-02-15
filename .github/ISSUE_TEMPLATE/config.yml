@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & Discussions
+    url: https://github.com/SwordfishTrumpet/plexsubs/discussions
+    about: Please use Discussions for questions, not Issues
+  - name: Documentation
+    url: https://github.com/SwordfishTrumpet/plexsubs#readme
+    about: Check the README for setup and configuration guides
