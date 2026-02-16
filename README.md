@@ -314,7 +314,7 @@ We appreciate your understanding!
 
 ## Acknowledgment
 
-Vibed with [Kimi K2.5](https://www.moonshot.ai/)
+Agentic engineered with [Kimi K2.5](https://www.moonshot.ai/)
 
 ## License
 
